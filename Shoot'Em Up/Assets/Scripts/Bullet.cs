@@ -5,7 +5,11 @@ using UnityEngine;
 public class Bullet : MonoBehaviour {
 
     public float speed = 1000f;
+
     private Rigidbody2D rb;
+    private Vector3 camPos;
+    private float minX, maxX, minY, maxY;
+
 
     private void Start()
     {
@@ -14,9 +18,33 @@ public class Bullet : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         rb.velocity = transform.right * speed * Time.deltaTime;
-        if (transform.position.y > 5)
+        HitWall();
+	}
+
+    void HitWall() {
+        float camDistance = Vector3.Distance(transform.position, Camera.main.transform.position);//Performance heavy 
+
+        Vector2 topCorner = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, camDistance));//Performance heavy 
+        Vector2 bottomCorner = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, camDistance));//Performance heavy 
+
+        Vector3 pos = transform.position;// Current Position - Keep this in here - The position has to update every Update Method.
+
+        maxY = topCorner.y;//Performance heavy 
+        minY = bottomCorner.y;
+        if (pos.y > maxY) Destroy(gameObject);
+        if (pos.y < minY) Destroy(gameObject);
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.name == "Enemy")
         {
+            Enemy enemy = collision.GetComponent<Enemy>();
+            enemy.TakeDamage(30);
             Destroy(gameObject);
         }
-	}
+        
+        
+    }
 }

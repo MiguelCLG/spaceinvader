@@ -2,26 +2,44 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour {
+public class WaveMovement : MonoBehaviour {
+
+    public float speed = 3f;
+
+    private float minX, maxX, minY, maxY;
+    private string lr;
 
     private Rigidbody2D rb;
-    private Vector3 camPos;
-
-    public float speed = 10f;
-    private float minX, maxX, minY, maxY;
-
-private void Start()
-
+    // Use this for initialization
+    void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-    }
-    void Update () {
-        MovementRestriction();
+        lr = "Left";
     }
 
-    void MovementRestriction() {
+    // Update is called once per frame
+    void Update()
+    {
+        MoveChange();
+        Move();
+    }
 
-        //Performance heavy - if performance drops move this to start position and find a way to keep it Landscape/Portrait when resolution changes
+    void Move()
+    {
+
+        if (lr == "Right")
+        {
+            transform.position += Vector3.left * speed * Time.deltaTime;
+        }
+        else if (lr == "Left")
+        {
+            transform.position += Vector3.right * speed * Time.deltaTime;
+        }
+
+    }
+    void MoveChange()
+    {
+
         float camDistance = Vector3.Distance(transform.position, Camera.main.transform.position);//Performance heavy 
 
         Vector2 bottomCorner = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, camDistance));//Performance heavy 
@@ -37,8 +55,8 @@ private void Start()
 
 
         // Horizontal contraint
-        if (pos.x < minX) pos.x = minX;
-        if (pos.x > maxX) pos.x = maxX;
+        if (pos.x < minX) lr = "Left";
+        if (pos.x > maxX) lr = "Right";
 
         // vertical contraint
         if (pos.y < minY) pos.y = minY;
@@ -46,31 +64,5 @@ private void Start()
 
         // Update position
         transform.position = pos;
-    }
-
-    private void FixedUpdate()
-    {
-        Move();
-    }
-
-    void Move()
-    {
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.position += Vector3.left * speed * Time.deltaTime;
-        }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.position += Vector3.right * speed * Time.deltaTime;
-        }
-        if (Input.GetKey(KeyCode.W))
-        {
-            transform.position += Vector3.up * speed * Time.deltaTime;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            transform.position += Vector3.down * speed * Time.deltaTime;
-        }
     }
 }
