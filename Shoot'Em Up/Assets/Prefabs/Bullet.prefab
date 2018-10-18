@@ -100,6 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1000
+  impactEffect: {fileID: 1723025794987314, guid: cd4d99eae13cfac42932564461f817ea,
+    type: 2}
 --- !u!212 &212137865177147318
 SpriteRenderer:
   m_ObjectHideFlags: 1

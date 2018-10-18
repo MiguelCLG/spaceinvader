@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour {
     private Rigidbody2D rb;
     private Vector3 camPos;
     private float minX, maxX, minY, maxY;
-
+    public GameObject impactEffect;
 
     private void Start()
     {
@@ -42,9 +42,17 @@ public class Bullet : MonoBehaviour {
         {
             Enemy enemy = collision.GetComponent<Enemy>();
             enemy.TakeDamage(30);
+            Instantiate(impactEffect, transform.position, transform.rotation);
             Destroy(gameObject);
         }
-        
-        
+        Debug.Log(collision.name);
+        if (collision.name == "Player") {
+            PlayerStats player = collision.GetComponent<PlayerStats>();
+            player.TakeDamage();
+            Instantiate(impactEffect, transform.position, transform.rotation);
+            Destroy(gameObject);
+        }
+
+
     }
 }
