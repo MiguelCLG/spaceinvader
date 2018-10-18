@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4690500491914364}
   - component: {fileID: 212349344621308258}
   - component: {fileID: 95210700975614062}
+  - component: {fileID: 114159314286366380}
   m_Layer: 0
   m_Name: ImpactEffect
   m_TagString: Untagged
@@ -59,6 +60,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114159314286366380
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1723025794987314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e79e0b46f70b024a92f9e3cd770bf85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 0
 --- !u!212 &212349344621308258
 SpriteRenderer:
   m_ObjectHideFlags: 1

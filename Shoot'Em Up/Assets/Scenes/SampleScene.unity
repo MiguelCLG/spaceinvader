@@ -113,6 +113,23 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &371207343 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1580416864092856, guid: 668180a309e348f4a975ad91a53e7f75,
+    type: 2}
+  m_PrefabInternal: {fileID: 1797622845}
+--- !u!114 &371207350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 371207343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4c0e97e3407c364ab4e451e72235b33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 3
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -443,7 +460,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1375118744}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: FireWeapon_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -511,6 +528,10 @@ Prefab:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 1412490974916798, guid: 668180a309e348f4a975ad91a53e7f75, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 668180a309e348f4a975ad91a53e7f75, type: 2}
   m_IsPrefabAsset: 0
@@ -523,7 +544,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2004723895}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: FireWeapon_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
