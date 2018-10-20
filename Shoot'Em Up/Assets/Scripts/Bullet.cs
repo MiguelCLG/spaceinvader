@@ -38,15 +38,14 @@ public class Bullet : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.name == "Enemy")
+        if (collision.tag == "Enemy" && gameObject.tag != "enemy-bullet")
         {
             Enemy enemy = collision.GetComponent<Enemy>();
-            enemy.TakeDamage(30);
+            enemy.TakeDamage(1);
             Instantiate(impactEffect, transform.position, transform.rotation);
             Destroy(gameObject);
         }
-        Debug.Log(collision.name);
-        if (collision.name == "Player") {
+        if (collision.name == "Player" && gameObject.tag != "player-bullet") {
             PlayerStats player = collision.GetComponent<PlayerStats>();
             player.TakeDamage();
             Instantiate(impactEffect, transform.position, transform.rotation);

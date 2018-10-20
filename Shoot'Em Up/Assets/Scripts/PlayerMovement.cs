@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
 
+    public HUD hud;
     private Rigidbody2D rb;
     private Vector3 camPos;
+
+
 
     public float speed = 10f;
     private float minX, maxX, minY, maxY;
 
 private void Start()
-
     {
         rb = GetComponent<Rigidbody2D>();
     }
@@ -50,7 +52,10 @@ private void Start()
 
     private void FixedUpdate()
     {
-        Move();
+        if (hud.spawning == 0)
+        {
+            Move();
+        }
     }
 
     void Move()

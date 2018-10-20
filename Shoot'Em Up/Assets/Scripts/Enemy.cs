@@ -4,22 +4,27 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour {
 
-    public float health = 100f;
+    public int health = 3;
 
     public EnemyWeapon enemyWeapon;
-  
-    public float shootingRate = 2f;
+    public HUD hud;
+    public GameObject gameSystem;
 
+
+
+    public float shootingRate = 2f;
     private float shootCooldown;
 
     void Start()
     {
-        
-        shootCooldown = Random.Range(0f, 2f);
+        gameSystem = GameObject.FindGameObjectWithTag("game-system");
+        hud = gameSystem.GetComponent<HUD>();
+        shootCooldown = Random.Range(2f, 6f);
     }
 
     void Update()
     {
+
         if (shootCooldown > 0)
         {
             shootCooldown -= Time.deltaTime;
@@ -33,7 +38,7 @@ public class Enemy : MonoBehaviour {
     {
         if (CanAttack)
         {
-            shootingRate = Random.Range(0f, 2f);
+            shootingRate = Random.Range(2f, 6f);
             shootCooldown = shootingRate;
             enemyWeapon.Shoot();
   
@@ -59,6 +64,7 @@ public void TakeDamage(int damage)
 
     void Die()
     {
+        hud.Frag();
         Destroy(gameObject);
     }
 }

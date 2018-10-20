@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - enemy-bullet
+  - player
+  - player-bullet
+  - game-system
+  - wave
   layers:
   - Default
   - TransparentFX

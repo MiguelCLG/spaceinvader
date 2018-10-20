@@ -23,9 +23,9 @@ GameObject:
   - component: {fileID: 61379185351442434}
   - component: {fileID: 50893506749405260}
   - component: {fileID: 114576715598533880}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bullet_Enemy
-  m_TagString: Untagged
+  m_TagString: enemy-bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb6f65c870228ed4bb19c8441892c56d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1000
+  speed: 500
   impactEffect: {fileID: 1723025794987314, guid: cd4d99eae13cfac42932564461f817ea,
     type: 2}
 --- !u!212 &212382861119979050
