@@ -46,8 +46,8 @@ public class Bullet : MonoBehaviour {
             Destroy(gameObject);
         }
         if (collision.name == "Player" && gameObject.tag != "player-bullet") {
-            PlayerStats player = collision.GetComponent<PlayerStats>();
-            player.TakeDamage();
+            //PlayerStats player = collision.GetComponent<PlayerStats>();
+            //player.TakeDamage();
             Instantiate(impactEffect, transform.position, transform.rotation);
             Destroy(gameObject);
         }

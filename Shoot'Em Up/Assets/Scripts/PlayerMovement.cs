@@ -52,7 +52,7 @@ private void Start()
 
     private void FixedUpdate()
     {
-        if (hud.spawning == 0)
+        if (!hud.initialSpawn)
         {
             Move();
         }

@@ -8,8 +8,8 @@ public class WaveMovement : MonoBehaviour {
 
     private float minX, maxX, minY, maxY;
     private string lr, ud;
-    public HUD hud;
-    public GameObject gameSystem;
+    private HUD hud;
+    private GameObject gameSystem;
 
     private Rigidbody2D rb;
     // Use this for initialization

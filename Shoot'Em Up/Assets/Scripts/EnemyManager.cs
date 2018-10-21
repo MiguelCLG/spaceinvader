@@ -41,5 +41,6 @@ public class EnemyManager : MonoBehaviour
         else {
             spawnPointIndex = 0;
         }
+        hud.initialSpawn = false;
     }
 }

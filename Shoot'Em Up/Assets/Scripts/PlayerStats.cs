@@ -11,16 +11,19 @@ public class PlayerStats : MonoBehaviour {
     public int maxHealth = 3;
     public int health = 3;
 
-    public int healthPerHeart = 1; 
+    public int healthPerHeart = 1;
 
-    public Text lives;
+    public GameObject gameOverMenu;
+
     public Image[] healthImages;
     public Sprite[] healthSprites;
 
+    Animator animator;
     // Use this for initialization
 
     private void Start()
     {
+        animator = GetComponent<Animator>();
         CheckHealthAmount();
     }
     void CheckHealthAmount()
@@ -66,18 +69,30 @@ public class PlayerStats : MonoBehaviour {
             }
         }
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Enemy" || collision.tag == "enemy-bullet")
+        {
+            TakeDamage();
+        }
+    }
     public void TakeDamage()
     {
+        
         health -= 1;
-        UpdateHearts();
+        animator.SetBool("TakeDamage", true);
         if (health <= 0)
         {
             Die();
         }
         else
         {
-            lives.text = health.ToString();
+            UpdateHearts();
         }
+    }
+    void AnimationEnded()
+    {
+        animator.SetBool("TakeDamage", false);
     }
 
     public void AddHeartContainer()
@@ -89,6 +104,7 @@ public class PlayerStats : MonoBehaviour {
     void Die()
     {
         Destroy(gameObject);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Time.timeScale = 0f;
+        gameOverMenu.SetActive(true);        
     }
 }

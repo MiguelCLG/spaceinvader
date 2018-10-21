@@ -11,8 +11,10 @@ public class HUD : MonoBehaviour {
     public int waveNumber = 1;
     public int score = 0;
     public GameObject enemyWavePrefab;
-    public Text textScore;
+    public TMPro.TextMeshProUGUI textScore, gameOverScore, levelClearedScore;
+    public GameObject levelClearedMenu;
     public int spawning = 1;
+    public bool initialSpawn = true;
 
     public void Start()
     {
@@ -23,6 +25,8 @@ public class HUD : MonoBehaviour {
     {
         score += value;
         textScore.text = score.ToString();
+        gameOverScore.text = score.ToString();
+        levelClearedScore.text = score.ToString();
     }
 
     public void Frag() {
@@ -59,6 +63,7 @@ public class HUD : MonoBehaviour {
     }
 
     public void LevelComplete() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Time.timeScale = 0f;
+        levelClearedMenu.SetActive(true);
     }
 }
