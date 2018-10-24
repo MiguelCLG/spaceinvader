@@ -73,11 +73,6 @@ public class WaveMovement : MonoBehaviour {
         minY = bottomCorner.y;//Performance heavy
         maxY = topCorner.y;//Performance heavy */
        
-
-      /*  Debug.Log("MinX:" + minX + "MaxX: " + maxX);
-        Debug.Log("MinY:" + minY + "MaxY: " + maxY);
-        Debug.Log("PosX: " + pos.x + "PosY: " + pos.y);
-        */
         // Horizontal contraint
         if (pos.x < minX) lr = "Left";
         if (pos.x > maxX) lr = "Right";

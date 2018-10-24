@@ -10,15 +10,22 @@ public class HUD : MonoBehaviour {
     public int numWaves = 2;
     public int waveNumber = 1;
     public int score = 0;
-    public GameObject enemyWavePrefab;
-    public TMPro.TextMeshProUGUI textScore, gameOverScore, levelClearedScore;
-    public GameObject levelClearedMenu;
+
+    public TMPro.TextMeshProUGUI textScore, gameOverScore, levelClearedScore, waveNumberText, highScoreText;
+
     public int spawning = 1;
     public bool initialSpawn = true;
 
+    public GameObject enemyWavePrefab;
+    public GameObject levelClearedMenu;
+    public GameObject gameOverMenu;
+    private DataController dataController;
+
     public void Start()
     {
+        dataController = FindObjectOfType<DataController>();
         enemyWavePrefab = Instantiate(enemyWavePrefab, new Vector3(0, 4.4f, 0), Quaternion.identity);
+        highScoreText.text = dataController.GetHighestPlayerScore().ToString();
     }
 
     public void AddScore(int value)
@@ -44,6 +51,7 @@ public class HUD : MonoBehaviour {
 
     public void WaveComplete()
     {
+        /*
         if (numWaves == waveNumber)
         {
             LevelComplete();
@@ -51,13 +59,20 @@ public class HUD : MonoBehaviour {
         else {
             SpawnWave();
     
-        }
+        }*/
+        waveNumber++;
+        waveNumberText.text = waveNumber.ToString();
+        SpawnWave();
     }
 
     public void SpawnWave()
     {
-        waveNumber += 1;
-        AddScore(400);
+        if (waveNumber % 5 == 0)
+            AddScore(1000);
+        else
+        {
+            AddScore(400);
+        }
         numEnemies = 15;
         spawning = 1;
     }
@@ -65,5 +80,12 @@ public class HUD : MonoBehaviour {
     public void LevelComplete() {
         Time.timeScale = 0f;
         levelClearedMenu.SetActive(true);
+    }
+
+    public void GameOver()
+    {
+        dataController.SubmitNewPlayerScore(score);
+        gameOverMenu.SetActive(true);
+
     }
 }

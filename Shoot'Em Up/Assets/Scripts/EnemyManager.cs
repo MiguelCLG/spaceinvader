@@ -13,7 +13,7 @@ public class EnemyManager : MonoBehaviour
     {
         // Call the Spawn function after a delay of the spawnTime and then continue to call after the same amount of time.
         gs = GameObject.FindGameObjectWithTag("game-system");
-        hud = gs.GetComponent<HUD>();
+        hud = FindObjectOfType<HUD>();
         InvokeRepeating("Spawn", spawnTime, spawnTime);
 
     }

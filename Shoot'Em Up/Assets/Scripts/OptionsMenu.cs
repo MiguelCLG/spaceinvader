@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class OptionsMenu : MonoBehaviour {
 
-    public AudioMixer audioMixer;
+    public AudioManager audioManager;
 
     public Dropdown resolutionDropdown;
 
@@ -14,8 +14,7 @@ public class OptionsMenu : MonoBehaviour {
 
     public void Start()
     {
-        audioMixer.SetFloat("Volume", -50f);
-
+        audioManager = FindObjectOfType<AudioManager>();
         resolutions = Screen.resolutions;
         resolutionDropdown.ClearOptions();
 
@@ -39,9 +38,9 @@ public class OptionsMenu : MonoBehaviour {
         
     }
 
-    public void SetVolume (float volume)
+    public void SetVolume(float volume)
     {
-        audioMixer.SetFloat("Volume", volume);
+        audioManager.ChangeVolume("BackgroundMusic", volume);
     }
 
     public void SetQuality(int qualityIndex)

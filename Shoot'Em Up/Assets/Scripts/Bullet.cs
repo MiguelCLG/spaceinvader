@@ -10,13 +10,21 @@ public class Bullet : MonoBehaviour {
     private Vector3 camPos;
     private float minX, maxX, minY, maxY;
     public GameObject impactEffect;
+    private HUD hud;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        hud = FindObjectOfType<HUD>();
     }
     // Update is called once per frame
     void Update () {
+        if (hud.spawning == 1)
+        {
+            Instantiate(impactEffect, transform.position, transform.rotation);
+            Destroy(gameObject);
+            return;
+        }
         rb.velocity = transform.right * speed * Time.deltaTime;
         HitWall();
 	}
@@ -38,20 +46,20 @@ public class Bullet : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Enemy" && gameObject.tag != "enemy-bullet")
-        {
-            Enemy enemy = collision.GetComponent<Enemy>();
-            enemy.TakeDamage(1);
-            Instantiate(impactEffect, transform.position, transform.rotation);
-            Destroy(gameObject);
-        }
-        if (collision.name == "Player" && gameObject.tag != "player-bullet") {
-            //PlayerStats player = collision.GetComponent<PlayerStats>();
-            //player.TakeDamage();
-            Instantiate(impactEffect, transform.position, transform.rotation);
-            Destroy(gameObject);
-        }
-
-
+            if (collision.tag == "Enemy" && gameObject.tag != "enemy-bullet")
+            {
+                Enemy enemy = collision.GetComponent<Enemy>();
+                PlayerStats player = FindObjectOfType<PlayerStats>(); 
+                enemy.TakeDamage(player.damage);
+                Instantiate(impactEffect, transform.position, transform.rotation);
+                Destroy(gameObject);
+            }
+            if (collision.name == "Player" && gameObject.tag != "player-bullet")
+            {
+                //PlayerStats player = collision.GetComponent<PlayerStats>();
+                //player.TakeDamage();
+                Instantiate(impactEffect, transform.position, transform.rotation);
+                Destroy(gameObject);
+            }
     }
 }

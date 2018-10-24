@@ -6,23 +6,24 @@ using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour {
 
-    private int maxHearts = 3;
+    private readonly int maxHearts = 3;
     public int startHearts = 3;
-    public int maxHealth = 3;
     public int health = 3;
-
+    public int damage = 1;
     public int healthPerHeart = 1;
 
-    public GameObject gameOverMenu;
+    private HUD hud;
 
     public Image[] healthImages;
     public Sprite[] healthSprites;
 
     Animator animator;
+
     // Use this for initialization
 
     private void Start()
     {
+        hud = FindObjectOfType<HUD>();
         animator = GetComponent<Animator>();
         CheckHealthAmount();
     }
@@ -95,16 +96,20 @@ public class PlayerStats : MonoBehaviour {
         animator.SetBool("TakeDamage", false);
     }
 
+    public void AddDamage()
+    {
+        damage++;
+    }
     public void AddHeartContainer()
     {
-        startHearts++;
-        startHearts = Mathf.Clamp(startHearts, 0, maxHearts);
+        health = Mathf.Clamp(startHearts, 0, maxHearts);
         CheckHealthAmount();
     }
+
     void Die()
     {
         Destroy(gameObject);
         Time.timeScale = 0f;
-        gameOverMenu.SetActive(true);        
+        hud.GameOver();
     }
 }

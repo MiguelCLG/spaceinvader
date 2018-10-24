@@ -17,6 +17,7 @@ public class Weapon : MonoBehaviour {
 	}
 
     void Shoot() {
+        FindObjectOfType<AudioManager>().Play("LaserShot");
         Instantiate(bulletPrefab, firePoint.position, bulletPrefab.transform.rotation);
     }
 }

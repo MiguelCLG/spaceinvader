@@ -7,8 +7,7 @@ public class Enemy : MonoBehaviour {
     public int health = 3;
 
     public EnemyWeapon enemyWeapon;
-    public HUD hud;
-    public GameObject gameSystem;
+    private HUD hud;
 
 
 
@@ -17,8 +16,7 @@ public class Enemy : MonoBehaviour {
 
     void Start()
     {
-        gameSystem = GameObject.FindGameObjectWithTag("game-system");
-        hud = gameSystem.GetComponent<HUD>();
+        hud = FindObjectOfType<HUD>();
         shootCooldown = Random.Range(2f, 6f);
     }
 
@@ -64,6 +62,8 @@ public void TakeDamage(int damage)
 
     void Die()
     {
+        LootSystem lootSystem = FindObjectOfType<LootSystem>();
+        lootSystem.CalculateDrop(transform);
         hud.Frag();
         Destroy(gameObject);
     }
