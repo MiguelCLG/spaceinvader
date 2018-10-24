@@ -32,8 +32,8 @@ public class Item : MonoBehaviour {
             {
                 player.AddHeartContainer();
             }
+                Destroy(gameObject);
         }
-        Destroy(gameObject);
         return;
     }
 }
