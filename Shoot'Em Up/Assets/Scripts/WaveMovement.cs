@@ -20,8 +20,8 @@ public class WaveMovement : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         lr = "Left";
         ud = "Up";
-        minX = transform.position.x - 1f;
-        maxX = transform.position.x + 1f;
+        minX = transform.position.x - 2.5f;
+        maxX = transform.position.x + 2.5f;
         maxY = transform.position.y + 0.5f;
         minY = transform.position.y - 0.5f;
     }

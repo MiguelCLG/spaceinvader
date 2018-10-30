@@ -3798,7 +3798,7 @@ GameObject:
   - component: {fileID: 1173682273}
   - component: {fileID: 1173682272}
   - component: {fileID: 1173682271}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BackgroundParalax
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4726,6 +4726,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 1526783920529350, guid: da0e4cba0b890024aab646b32ec1b615, type: 2}
+  boss: {fileID: 1693258154989346, guid: b75bc677ade88bd498c9dc1bddac4763, type: 2}
   spawnTime: 0.1
   spawnPoints:
   - {fileID: 418221230}

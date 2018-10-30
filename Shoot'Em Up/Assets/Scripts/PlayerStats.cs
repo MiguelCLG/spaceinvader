@@ -13,6 +13,7 @@ public class PlayerStats : MonoBehaviour {
     public int healthPerHeart = 1;
 
     private HUD hud;
+    private bool invulnerable = false;
 
     public Image[] healthImages;
     public Sprite[] healthSprites;
@@ -72,15 +73,19 @@ public class PlayerStats : MonoBehaviour {
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Enemy" || collision.tag == "enemy-bullet")
-        {
-            TakeDamage();
+        if (!invulnerable)
+        { 
+            if (collision.tag == "Enemy" || collision.tag == "enemy-bullet")
+            {
+                invulnerable = true;
+                TakeDamage(1);
+            }
         }
     }
-    public void TakeDamage()
+    public void TakeDamage(int damage)
     {
         
-        health -= 1;
+        health -= damage;
         animator.SetBool("TakeDamage", true);
         if (health <= 0)
         {
@@ -94,15 +99,23 @@ public class PlayerStats : MonoBehaviour {
     void AnimationEnded()
     {
         animator.SetBool("TakeDamage", false);
+        invulnerable = false;
     }
 
     public void AddDamage()
     {
-        damage++;
+        if (damage < 5)
+        {
+            damage++;
+
+        }
     }
     public void AddHeartContainer()
     {
-        health = Mathf.Clamp(startHearts, 0, maxHearts);
+        if(health < maxHearts)
+        {
+            health++;
+        }
         CheckHealthAmount();
     }
 

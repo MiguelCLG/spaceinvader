@@ -28,6 +28,19 @@ public class HUD : MonoBehaviour {
         highScoreText.text = dataController.GetHighestPlayerScore().ToString();
     }
 
+
+    public void Update()
+    {
+        CheckNumEnemies();
+    }
+
+    void CheckNumEnemies()
+    {
+        if(spawning == 0)
+        {
+            numEnemies = FindObjectsOfType<Enemy>().Length;
+        }
+    }
     public void AddScore(int value)
     {
         score += value;
@@ -35,6 +48,8 @@ public class HUD : MonoBehaviour {
         gameOverScore.text = score.ToString();
         levelClearedScore.text = score.ToString();
     }
+
+    
 
     public void Frag() {
         numEnemies -= 1;
@@ -68,13 +83,18 @@ public class HUD : MonoBehaviour {
     public void SpawnWave()
     {
         if (waveNumber % 5 == 0)
-            AddScore(1000);
+        {
+            AddScore(400);
+            numEnemies = 1;
+            spawning = 2;
+        }
         else
         {
             AddScore(400);
+            numEnemies = 15;
+            spawning = 1;
         }
-        numEnemies = 15;
-        spawning = 1;
+        
     }
 
     public void LevelComplete() {

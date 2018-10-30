@@ -3,6 +3,7 @@
 public class EnemyManager : MonoBehaviour
 {
     public GameObject enemy;                // The enemy prefab to be spawned.
+    public GameObject boss;
     public float spawnTime = 0.1f;            // How long between each spawn.
     public Transform[] spawnPoints;         // An array of the spawn points this enemy can spawn from.
     public GameObject gs;
@@ -15,9 +16,32 @@ public class EnemyManager : MonoBehaviour
         gs = GameObject.FindGameObjectWithTag("game-system");
         hud = FindObjectOfType<HUD>();
         InvokeRepeating("Spawn", spawnTime, spawnTime);
-
     }
 
+     
+    void SpawnBoss()
+    {
+        // Find a random index between zero and one less than the number of spawn points.
+        if (hud.spawning == 2)
+        {
+            GameObject clone = Instantiate(boss, spawnPoints[7].position, spawnPoints[7].rotation) as GameObject;
+            wave = GameObject.FindGameObjectWithTag("wave");
+            clone.transform.parent = wave.transform;
+            if (spawnPointIndex >= hud.numEnemies - 1)
+            {
+                hud.spawning = 0;
+            }
+            else
+            {
+                hud.spawning = 2;
+            }
+            spawnPointIndex += 1;
+        }
+        else
+        {
+            spawnPointIndex = 0;
+        }
+    }
 
     void Spawn()
     {
@@ -28,7 +52,7 @@ public class EnemyManager : MonoBehaviour
             GameObject clone = Instantiate(enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation) as GameObject;
             wave = GameObject.FindGameObjectWithTag("wave");
             clone.transform.parent = wave.transform;
-            if (spawnPointIndex >= hud.numEnemies-1)
+            if (spawnPointIndex >= hud.numEnemies - 1)
             {
                 hud.spawning = 0;
             }
@@ -38,7 +62,12 @@ public class EnemyManager : MonoBehaviour
             }
             spawnPointIndex += 1;
         }
-        else {
+        else if (hud.spawning == 2)
+        {
+            SpawnBoss();
+        }
+        else
+        {
             spawnPointIndex = 0;
         }
         hud.initialSpawn = false;

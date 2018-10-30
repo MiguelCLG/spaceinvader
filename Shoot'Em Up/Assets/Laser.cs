@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour {
+public class Laser : MonoBehaviour
+{
 
     public float speed = 1000f;
 
@@ -11,25 +12,29 @@ public class Bullet : MonoBehaviour {
     private float minX, maxX, minY, maxY;
     public GameObject impactEffect;
     private HUD hud;
+    public Boss boss;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         hud = FindObjectOfType<HUD>();
+        boss = FindObjectOfType<Boss>();
     }
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
         if (hud.spawning == 1)
         {
             Instantiate(impactEffect, transform.position, transform.rotation);
             Destroy(gameObject);
             return;
         }
-        rb.velocity = transform.right * speed * Time.deltaTime;
+        rb.velocity = -transform.up * speed * Time.deltaTime;
         HitWall();
-	}
+    }
 
-    void HitWall() {
+    void HitWall()
+    {
         float camDistance = Vector3.Distance(transform.position, Camera.main.transform.position);//Performance heavy 
 
         Vector2 topCorner = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, camDistance));//Performance heavy 
@@ -44,32 +49,26 @@ public class Bullet : MonoBehaviour {
 
     }
 
+    void AnimationOver()
+    {
+        boss.stopped = false;
+        Destroy(gameObject);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-            if (collision.tag == "Enemy" && gameObject.tag != "enemy-bullet")
-            {
-                Enemy enemy = collision.GetComponent<Enemy>();
-                PlayerStats player = FindObjectOfType<PlayerStats>(); 
-                enemy.TakeDamage(player.damage);
-                Instantiate(impactEffect, transform.position, transform.rotation);
-                Destroy(gameObject);
-            }
-
-            if (collision.tag == "Boss" && gameObject.tag != "enemy-bullet")
-            {
-                Boss boss = collision.GetComponent<Boss>();
-                PlayerStats player = FindObjectOfType<PlayerStats>();
-                boss.TakeDamage(player.damage);
-                Instantiate(impactEffect, transform.position, transform.rotation);
-                Destroy(gameObject);
-            }
-
-            if (collision.name == "Player" && gameObject.tag != "player-bullet")
-            {
-                //PlayerStats player = collision.GetComponent<PlayerStats>();
-                //player.TakeDamage(1);
-                Instantiate(impactEffect, transform.position, transform.rotation);
-                Destroy(gameObject);
-            }
+        if (collision.tag == "Enemy" && gameObject.tag != "enemy-bullet")
+        {
+            Enemy enemy = collision.GetComponent<Enemy>();
+            PlayerStats player = FindObjectOfType<PlayerStats>();
+            enemy.TakeDamage(player.damage);
+            Instantiate(impactEffect, transform.position, transform.rotation);
+        }
+        if (collision.name == "Player" && gameObject.tag != "player-bullet")
+        {
+            //PlayerStats player = collision.GetComponent<PlayerStats>();
+            //player.TakeDamage(2);
+            Instantiate(impactEffect, transform.position, transform.rotation);
+        }
     }
 }
